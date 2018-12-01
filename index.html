@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Linking Assets-->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--Linking JavaScript-->
+    <link type="text/javascript" src="app.js">
+    <!--Linking Boootstrap and jQuery-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <!--
+-->
+
+    <title>Trivia Game</title>
+</head>
+
+<body>
+
+
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <img src="assets/images/office-main.png" alt="office crew" style="width:1300px;height:500px;" id="main">
+            <h1 class="title"> The Office Trivia</h1><br />
+            <hr />
+
+            <div class="instructions">
+                <ul>
+                    <li>You have 120 seconds to answer 5 multiple choice questions</li>
+                    <li>You only get to chosoe one answer per question</li>
+                    <li>Once you get done with answering all 5 questions you can click the submit button </li>
+                    <li> If you run out of time it will only count the ones you have</li>
+                    <li>At the end of the game it will show the correct answers to each question</li>
+                </ul>
+                Once you are ready click the Start Game button to test your true fan skills about The Office.<br><br>
+            </div><br>
+            <div>
+
+                <button id="start" class="btn btn-info btn-lg"> Start Game</button><br>
+                <div id="timeLeft">Time Left:<span id="display"></span></div>
+            </div>
+        </div>
+
+
+        <div id="trivia">
+
+            <div class="q1">
+                <label for="question1">Question 1:<br> </label>
+                <img src="assets/images/fireguy.png" alt="office fire guy" style="width:600px;height:300px;" id="pic1"
+                    class="images">
+
+            </div>
+            <div class="q2">
+                <label for="question2">Question 2:<br> </label>
+                <img src="assets/images/grill.jpg" alt="office burned foot foreman grill" style="width:400px;height:300px"
+                    id="pic2" class="images">
+
+            </div>
+            <div class="question3">
+                <label for="question3">Question 3:<br> </label>
+
+                <img src="assets/images/onlinedating.jpg" alt="office michael online dating name" style="width:400px; height:300px;"
+                    id="pic3" class="images">
+
+            </div>
+            <div class="question4">
+                <label for="question4">Question 4:<br> </label>
+                <img src="assets/images/henryetta.jpg" alt="office dwight and Porrcipine" style="width:400px; height:300px;"
+                    id="pic4" class="images">
+
+            </div>
+            <div class="q5">
+                <label for="question5">Question 5:<br> </label>
+                <img src="assets/images/scarecrow.jpg" alt="office michaels Scarecrow" style="width:400px; height:300px;"
+                    id="pic5" class="images">
+
+            </div>
+        </div>
+
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#start").on("click", function () {
+                $("#timeLeft").show();
+                setInterval(count, 1000);
+                $("#trivia").show();
+                $(".instructions").hide();
+                $("#trivia").show();
+                $(".images").hide();
+
+            });
+            $("#timeLeft").hide();
+            $("#trivia").hide();
+            });
+            function newQuestion() {
+            var multipleChoice = $("<div>");
+                correct++;
+                answer = true;
+
+            for (var i = 0; i < 4; i++) {
+                    console.log(quiz);
+                }
+
+            }
+            function endGame() {
+
+
+                function count() {
+                    timer--;
+
+                    $("#display").text(timer);
+
+                    if (timer === 0) {
+                        alert("times up");
+                        $(".images").show();
+                        endGame();
+                    }
+
+                }
+            
+            
+
+            // Variables for Game
+            var trivia;
+            var timer = 10;
+            var correct = 0;
+            var incorrect = 0;
+            var timerUp;
+            var choices = "";
+            // Questions 1-5, CHoices to choose from, Answer to the question
+            var quiz = [{
+                q1: "Who started the fire with the toaster/oven?",
+                choices: ["A-Ryan", "B-Dwight", " C-Creed", "D-Pam"],
+                anwswer: 0
+            }, {
+                q2: "Who burned their foot with a foreman grill?",
+                choices: ["A-Jim", "B-Dwight", " C-Michael", "D-Andy"],
+                answer: 2
+            }, {
+                q3: "What is Michaels user name for his online dating profile?",
+                choices: ["A-Best-Boss", "B-Little Kid Lover", " C-Michael", "D-Family Man"],
+                anwswer: 1
+            }, {
+                q4: "What is the name of Dwight's Porrcipine in the prank he tried on Jim?",
+                choices: ["A- Robert", "B-Pinney", " C-Philip", "D-Henryetta"],
+                anwswer: 3
+            }, {
+                q5: "What does Michael give Oscar for Michaels going away gift?",
+                choices: ["A-Car", "B-His-Clients", " C-Scarecrow", "D-Best Boss Coffee Cup"],
+                anwswer: 2
+            }
+            ]
+        };
+
+
+    </script>
+
+
+
+</body>
+
+</html>
