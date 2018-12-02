@@ -44,42 +44,46 @@
                 <div id="timeLeft">Time Left:<span id="display"></span></div>
             </div>
         </div>
+        <!--Needed id and classes for later-->
+        <div id="allQuestions"></div>
+        <div id="question"></div>
+        <div id="pickFrom"></div>
 
 
         <div id="trivia">
-
             <div class="q1">
-                <label for="question1">Question 1:<br> </label>
+                <label for="question1" class="q">Question 1:Who started the fire with the toaster/oven?<br> </label>
                 <img src="assets/images/fireguy.png" alt="office fire guy" style="width:600px;height:300px;" id="pic1"
                     class="images">
 
             </div>
             <div class="q2">
-                <label for="question2">Question 2:<br> </label>
+                <label for="question2" class="q">Question 2:Who burned their foot with a foreman grill?<br> </label>
                 <img src="assets/images/grill.jpg" alt="office burned foot foreman grill" style="width:400px;height:300px"
                     id="pic2" class="images">
 
             </div>
-            <div class="question3">
-                <label for="question3">Question 3:<br> </label>
+            <div class="q3">
+                <label for="question3" class="q">Question 3:What is Michaels user name for his online dating profile?<br> </label>
 
                 <img src="assets/images/onlinedating.jpg" alt="office michael online dating name" style="width:400px; height:300px;"
                     id="pic3" class="images">
 
             </div>
-            <div class="question4">
-                <label for="question4">Question 4:<br> </label>
+            <div class="q4">
+                <label for="question4" class="q">Question 4:What is Michaels user name for his online dating profile?<br> </label>
                 <img src="assets/images/henryetta.jpg" alt="office dwight and Porrcipine" style="width:400px; height:300px;"
                     id="pic4" class="images">
 
             </div>
             <div class="q5">
-                <label for="question5">Question 5:<br> </label>
+                <label for="question5" class="q">Question 5:What does Michael give Oscar for his going away gift?<br> </label>
                 <img src="assets/images/scarecrow.jpg" alt="office michaels Scarecrow" style="width:400px; height:300px;"
                     id="pic5" class="images">
 
             </div>
         </div>
+    </div>
 
 
 
@@ -88,64 +92,110 @@
         crossorigin="anonymous"></script>
 
     <script>
-       
-           
-            // Variables for Game
-            var trivia;
-            var timer = 10;
-            var correct = 0;
-            var incorrect = 0;
-            var timerUp;
-            var choices = "";
-            // Questions 1-5, CHoices to choose from, Answer to the question
-            var quiz = [{
-                q1: "Who started the fire with the toaster/oven?",
-                choices: ["A-Ryan", "B-Dwight", " C-Creed", "D-Pam"],
-                anwswer: 0
+
+
+        // Variables for Game
+        var trivia;
+        var timer = 120;
+        var correct = 0;
+        var incorrect = 0;
+        var unAnswered = 0;
+        var timerUp;
+        var choices = "";
+        var allQuestion;
+        // Questions 1-5, CHoices to choose from, Answer to the question
+        var quiz = [
+            {
+                Q1: "Who started the fire with the toaster/oven?",
+                choices: {
+                    a: "Ryan",
+                    b: "Dwight",
+                    c: "Creed",
+                    d: "Pam",
+                },
+                anwswer: "Ryan"
             }, {
-                q2: "Who burned their foot with a foreman grill?",
-                choices: ["A-Jim", "B-Dwight", " C-Michael", "D-Andy"],
-                answer: 2
+                Q2: "Who burned their foot with a foreman grill?",
+                choices: {
+                    a: "Jim",
+                    b: "Dwight",
+                    c: "Michael",
+                    d: "Andy",
+                },
+                answer: "Michael"
             }, {
-                q3: "What is Michaels user name for his online dating profile?",
-                choices: ["A-Best-Boss", "B-Little Kid Lover", " C-Michael", "D-Family Man"],
-                anwswer: 1
+                Q3: "What is Michaels user name for his online dating profile?",
+                choices: {
+                    a: "Best-Boss",
+                    b: "Little Kid Lover",
+                    c: "Michael",
+                    d: "Family Man",
+                },
+                anwswer: "Little Kid Lover"
+
             }, {
-                q4: "What is the name of Dwight's Porrcipine in the prank he tried on Jim?",
-                choices: ["A- Robert", "B-Pinney", " C-Philip", "D-Henryetta"],
-                anwswer: 3
+                Q4: "What is Michaels user name for his online dating profile?",
+                choices: {
+                    a: "Robert",
+                    b: "Pinney",
+                    c: "Philip",
+                    d: "Henryetta",
+                },
+                anwswer: "Henryetta"
             }, {
-                q5: "What does Michael give Oscar for Michaels going away gift?",
-                choices: ["A-Car", "B-His-Clients", " C-Scarecrow", "D-Best Boss Coffee Cup"],
-                anwswer: 2
-            }]
-            
+                Q5: "What does Michael give Oscar for his going away gift?",
+                choices: {
+                    a: "Car",
+                    b: "His Clients",
+                    c: "Scarecrow",
+                    d: "Best Boss Cup",
+                },
+                anwswer: "Scarecrow"
+            }];
 
         $(document).ready(function () {
             $("#trivia").hide();
-            $("#timeLeft").hide();  
+            $("#timeLeft").hide();
 
-        $("#start").on("click", function () {
-            $("#instructions").hide();
-            $("#trivia").show();
-            $(".images").hide();
-            $("#timeLeft").show();
-            setInterval(count, 1000); 
-        });
+            $("#start").on("click", function () {
+                $("#instructions").hide();
+                $("#trivia").show();
+                $(".images").hide();
+                $("#timeLeft").show();
+                setInterval(count, 1000);
+                $("#Quiz").show();
+            });
 
-    function count() {
-    timer--;
-    $("#display").text(timer);
-    if (timer === 0) {
-        alert("times up");
-        $(".images").show();
-    }
-    } 
-            
+            function count() {
+                timer--;
+                $("#display").text(timer);
+                if (timer === 0) {
+                    alert("times up");
+                    $(".images").show();
+                }
+            }
 
+            function display(){
+    $("#trivia").html(quiz[0]);
+            }
 
+            function showResults() {
+                correct = 0;
+                incorrect = 0;
+                unAnswered = 0;
 
-        });
+                for (var i = 0; i < quiz.length; i++) {
+                    if (choice === answer) {
+                        correct++;
+                    } else if (choice === answer) {
+                        incorrect++;
+                    }
+                    else (choice === unAnswered); {
+                        incorrect++;
+                    }
+                }
+            }
+        })
     </script>
 
 
