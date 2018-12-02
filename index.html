@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--Linking Assets-->
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!--Linking JavaScript-->
     <link type="text/javascript" src="app.js">
@@ -29,7 +28,7 @@
             <h1 class="title"> The Office Trivia</h1><br />
             <hr />
 
-            <div class="instructions">
+            <div id="instructions">
                 <ul>
                     <li>You have 120 seconds to answer 5 multiple choice questions</li>
                     <li>You only get to chosoe one answer per question</li>
@@ -89,47 +88,8 @@
         crossorigin="anonymous"></script>
 
     <script>
-        $(document).ready(function () {
-            $("#start").on("click", function () {
-                $("#timeLeft").show();
-                setInterval(count, 1000);
-                $("#trivia").show();
-                $(".instructions").hide();
-                $("#trivia").show();
-                $(".images").hide();
-
-            });
-            $("#timeLeft").hide();
-            $("#trivia").hide();
-            });
-            function newQuestion() {
-            var multipleChoice = $("<div>");
-                correct++;
-                answer = true;
-
-            for (var i = 0; i < 4; i++) {
-                    console.log(quiz);
-                }
-
-            }
-            function endGame() {
-
-
-                function count() {
-                    timer--;
-
-                    $("#display").text(timer);
-
-                    if (timer === 0) {
-                        alert("times up");
-                        $(".images").show();
-                        endGame();
-                    }
-
-                }
-            
-            
-
+       
+           
             // Variables for Game
             var trivia;
             var timer = 10;
@@ -158,11 +118,34 @@
                 q5: "What does Michael give Oscar for Michaels going away gift?",
                 choices: ["A-Car", "B-His-Clients", " C-Scarecrow", "D-Best Boss Coffee Cup"],
                 anwswer: 2
-            }
-            ]
-        };
+            }]
+            
+
+        $(document).ready(function () {
+            $("#trivia").hide();
+            $("#timeLeft").hide();  
+
+        $("#start").on("click", function () {
+            $("#instructions").hide();
+            $("#trivia").show();
+            $(".images").hide();
+            $("#timeLeft").show();
+            setInterval(count, 1000); 
+        });
+
+    function count() {
+    timer--;
+    $("#display").text(timer);
+    if (timer === 0) {
+        alert("times up");
+        $(".images").show();
+    }
+    } 
+            
 
 
+
+        });
     </script>
 
 
