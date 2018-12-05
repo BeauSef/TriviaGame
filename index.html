@@ -44,69 +44,53 @@
                 <div id="timeLeft">Time Left:<span id="display"></span></div>
             </div>
         </div>
-        <!--Needed id and classes for later-->
+        <!--Quiz id's-->
         <div id="allQuestions"></div>
         <div id="question"></div>
         <div id="pickFrom"></div>
+        <!--Correct and Incorect id's-->
+        <div id="correctAnswers"></div>
+        <div id="incorrectAnswers"></div>
+        <div id="unAnwsered"></div>
+
 
 
         <div id="trivia">
-            <div class="q1">
-                <label for="question1" class="q">Question 1:Who started the fire with the toaster/oven?<br> </label>
-                <img src="assets/images/fireguy.png" alt="office fire guy" style="width:600px;height:300px;" id="pic1"
-                    class="images">
-
+            <div>
+                <!--- <label for="question1">Question 1:<br> </label>  -->
+                <img src="assets/images/fireguy.png" alt="office fire guy" style="width:400px;height:400px;" class="images">
+                <div id="questions"></div>
             </div>
-            <div class="q2">
-                <label for="question2" class="q">Question 2:Who burned their foot with a foreman grill?<br> </label>
+            <div>
+                <!-- <label for="question2">question 2:<br> </label> -->
                 <img src="assets/images/grill.jpg" alt="office burned foot foreman grill" style="width:400px;height:300px"
-                    id="pic2" class="images">
-
+                    class="images">
             </div>
-            <div class="q3">
-                <label for="question3" class="q">Question 3:What is Michaels user name for his online dating profile?<br> </label>
-
-                <img src="assets/images/onlinedating.jpg" alt="office michael online dating name" style="width:400px; height:300px;"
-                    id="pic3" class="images">
-
-            </div>
-            <div class="q4">
-                <label for="question4" class="q">Question 4:What is Michaels user name for his online dating profile?<br> </label>
+            <!-- <label for="question3">Question 3:<br> </label> -->
+            <img src="assets/images/onlinedating.jpg" alt="office michael online dating name" style="width:400px; height:300px;"
+                class="images">
+            <div>
+                <!-- <label for="question4">Question 4:<br> </label> -->
                 <img src="assets/images/henryetta.jpg" alt="office dwight and Porrcipine" style="width:400px; height:300px;"
-                    id="pic4" class="images">
-
+                    class="images">
             </div>
-            <div class="q5">
-                <label for="question5" class="q">Question 5:What does Michael give Oscar for his going away gift?<br> </label>
+            <div>
+                <!-- <label for="question5">Question 5:<br> </label> -->
                 <img src="assets/images/scarecrow.jpg" alt="office michaels Scarecrow" style="width:400px; height:300px;"
-                    id="pic5" class="images">
-
+                    class="images">
             </div>
         </div>
     </div>
 
-
-
-    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 
     <script>
 
-
-        // Variables for Game
-        var trivia;
-        var timer = 120;
-        var correct = 0;
-        var incorrect = 0;
-        var unAnswered = 0;
-        var timerUp;
-        var choices = "";
-        var allQuestion;
         // Questions 1-5, CHoices to choose from, Answer to the question
         var quiz = [
             {
-                Q1: "Who started the fire with the toaster/oven?",
+                questions: "Who started the fire with the toaster/oven?",
                 choices: {
                     a: "Ryan",
                     b: "Dwight",
@@ -115,7 +99,7 @@
                 },
                 anwswer: "Ryan"
             }, {
-                Q2: "Who burned their foot with a foreman grill?",
+                questions: "Who burned their foot with a foreman grill?",
                 choices: {
                     a: "Jim",
                     b: "Dwight",
@@ -124,7 +108,7 @@
                 },
                 answer: "Michael"
             }, {
-                Q3: "What is Michaels user name for his online dating profile?",
+                questions: "What is Michaels user name for his online dating profile?",
                 choices: {
                     a: "Best-Boss",
                     b: "Little Kid Lover",
@@ -134,7 +118,7 @@
                 anwswer: "Little Kid Lover"
 
             }, {
-                Q4: "What is Michaels user name for his online dating profile?",
+                questions: "What is Michaels user name for his online dating profile?",
                 choices: {
                     a: "Robert",
                     b: "Pinney",
@@ -143,7 +127,7 @@
                 },
                 anwswer: "Henryetta"
             }, {
-                Q5: "What does Michael give Oscar for his going away gift?",
+                questions: "What does Michael give Oscar for his going away gift?",
                 choices: {
                     a: "Car",
                     b: "His Clients",
@@ -153,47 +137,108 @@
                 anwswer: "Scarecrow"
             }];
 
+
+        // Variables for Game
+        var trivia;
+        var timer = 10;
+        var correct = 0;
+        var incorrect = 0;
+        var unAnswered = 0;
+        var timerUp;
+        var choices = "";
+        var allQuestion;
+        var userAnswer;
+
+
         $(document).ready(function () {
             $("#trivia").hide();
             $("#timeLeft").hide();
 
             $("#start").on("click", function () {
+                startGame();
+                startTimer();
+                Questions();
+
+
+            })
+            function startGame() {
+                // Start Game starts everything fresh
+                // jumbotron info
                 $("#instructions").hide();
                 $("#trivia").show();
-                $(".images").hide();
                 $("#timeLeft").show();
-                setInterval(count, 1000);
-                $("#Quiz").show();
-            });
+                $(".images").hide();
+                // quiz area
+                $("#correctAnswers").empty();
+                $("#incorrectAnswers").empty();
+                $("#unanswered").empty();
+                correct = 0;
+                incorrect = 0;
+                unanswered = 0;
 
-            function count() {
+            }
+
+            function endGame() {
+                // End Game shows results and Images
+                $("timeLeft").empty();
+                $(".images").show();
+
+
+
+            }
+            // Timer for starting the game
+            function startTimer() {
+                $("#display").text(timer);
+                setInterval(endTimer, 1000)
+            }
+            function endTimer() {
                 timer--;
                 $("#display").text(timer);
                 if (timer === 0) {
-                    alert("times up");
-                    $(".images").show();
+                    alert("Time's Up! ")
+
                 }
             }
 
-            function display(){
-    $("#trivia").html(quiz[0]);
-            }
+            // This will be the content of the game Answers and Questions
 
-            function showResults() {
-                correct = 0;
-                incorrect = 0;
-                unAnswered = 0;
-
+            //Questions and Answer
+            function Questions() {
                 for (var i = 0; i < quiz.length; i++) {
-                    if (choice === answer) {
-                        correct++;
-                    } else if (choice === answer) {
-                        incorrect++;
+                    $("#questions").append("<h2>" + quiz[i].questions + "</h2>");
+
+                    for (var j = 0; j < quiz[i].choices.length; j++) {
+                    $("#questions").append("<input type='radio' name='question" + i + "'value='" + quiz[i].questions[j] + "''>" + quiz[i].questions[j] );
                     }
-                    else (choice === unAnswered); {
+
+                
+                    
+                
+                }
+    
+                
+
+
+
+
+            }
+            function Answers() {
+                for (var i = 0; i < quiz.length; i++) {
+                    if (userAnswer === correct) {
+                        correct++;
+                    } else if (userAnswer === "") {
+                        unAnswered++;
+                    } else if (userAnswer !== correct) {
                         incorrect++;
+
+
                     }
                 }
+
+
+
+
+
             }
         })
     </script>
