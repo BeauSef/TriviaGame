@@ -24,11 +24,11 @@
             <hr />
             <div id="instructions">
                 <ul>
-                    <li>You have 120 seconds to answer 5 multiple choice questions</li>
+                    <li>You have 4 seconds to answer 5 multiple choice questions</li>
                     <li>You only get to choose one answer per question</li>
-                    <li>Once you get done with answering all 5 questions you can click the submit button </li>
+                    <li>Once you get done with answering all 5 questions and the timer runs out the game will end</li>
                     <li> If you run out of time it will only count the ones you have</li>
-                    <li>At the end of the game it will show the correct answers to each question</li>
+                    <li>At the end of the game it will show the correct answers to each question and a image to remind you</li>
                 </ul>
                 Once you are ready click the Start Game button to test your true fan skills about The Office.<br><br>
             </div><br>
@@ -38,10 +38,7 @@
             </div>
         </div>
         <!--Quiz id's-->
-        <div id="allQuestions"></div>
         <div id="question"></div>
-        <div id="pickFrom"></div>
-        <!--Correct and Incorect id's-->
         <div id="correctAnswers"></div>
         <div id="incorrectAnswers"></div>
         <div id="unAnwsered"></div>
@@ -66,7 +63,7 @@
             <img src="assets/images/onlinedating.jpg" alt="office michael online dating name" style="width:300px; height:300px;"
                 class="images">
             <div class="h3">
-                <h3>"B: Little Kid Lover"</h3>
+                <h3>B: Little Kid Lover</h3>
             </div>
             <div><br>
 
@@ -81,15 +78,12 @@
                 <img src="assets/images/scarecrow.jpg" alt="office michaels Scarecrow" style="width:300px; height:300px;"
                     class="images">
                 <div class="h3">
-                    <h3>C: Scarecrow"</h3>
+                    <h3>C: Scarecrow</h3>
                 </div>
             </div>
         </div>
     </div>
 
-    <form action="">
-        <input type="submit" value="Submit" id="submit">
-    </form>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script>
@@ -116,7 +110,7 @@
             }, {
                 questions: "What is Michaels user name for his online dating profile?",
                 choices: [
-                    "A: Best-Boss",
+                    "A: Best Boss",
                     "B: Little Kid Lover",
                     "C: Michael",
                     "D: Family Man",
@@ -143,12 +137,10 @@
             }];
         // Variables for Game
         var trivia;
-        var timer = 20;
+        var timer = 40;
         var correct = 0;
         var incorrect = 0;
         var unAnswered = 0;
-        var timerUp;
-        var choices = "";
         $(document).ready(function () {
             $("#trivia").hide();
             $("#timeLeft").hide();
@@ -184,7 +176,6 @@
             function startTimer() {
                 $("#display").text(timer);
                 setInterval(countDown, 1000)
-
             };
             function countDown() {
                 timer--;
@@ -194,7 +185,6 @@
                     endTimer();
                     $("#timeLeft").empty();
                 }
-
             };
             function endTimer() {
                 clearTimeout();
@@ -204,12 +194,9 @@
             function submit() {
                 $("#submit").on("click", function () {
                     endGame();
-                    Answers();
-                    endTimer();
-                   
+                    showResults();
                 })
             }
-
             function endGame() {
                 // End Game shows results and Images
                 $("#timeLeft").empty();
@@ -220,7 +207,6 @@
             };
 
             function showResults() {
-
 
                 for (var i = 0; i < quiz.length; i++) {
                     var rightAnswer = quiz[i].answer;
@@ -259,5 +245,4 @@
             })
     </script>
 </body>
-
 </html>
